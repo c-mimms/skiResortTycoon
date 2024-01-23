@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://twfy2qdno8a2"
+path="res://.godot/imported/ski lift tower.obj-cacf6abab1b82277e29d47f78790eefe.mesh"
+
+[deps]
+
+files=["res://.godot/imported/ski lift tower.obj-cacf6abab1b82277e29d47f78790eefe.mesh"]
+
+source_file="res://ski lift tower.obj"
+dest_files=["res://.godot/imported/ski lift tower.obj-cacf6abab1b82277e29d47f78790eefe.mesh", "res://.godot/imported/ski lift tower.obj-cacf6abab1b82277e29d47f78790eefe.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

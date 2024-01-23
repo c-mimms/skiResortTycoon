@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://cb7rf7tncnwv7"]
+
+[ext_resource type="Script" path="res://scripts/BallController.cs" id="1_dtoi4"]
+[ext_resource type="Texture2D" uid="uid://c3r0y748vi8k7" path="res://assets/textures/mud/brown_mud_02_diff_4k.jpg" id="2_2clqt"]
+[ext_resource type="Texture2D" uid="uid://bf1aaao1pju76" path="res://assets/textures/mud/brown_mud_02_nor_dx_4k.jpg" id="3_doikx"]
+[ext_resource type="Texture2D" uid="uid://ba4vyu0jc7xlr" path="res://assets/textures/mud/brown_mud_02_rough_4k.jpg" id="4_2p0nv"]
+[ext_resource type="Script" path="res://scripts/FollowCamera.cs" id="5_iqsae"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u7e31"]
+radius = 0.495726
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y0lxm"]
+albedo_texture = ExtResource("2_2clqt")
+roughness_texture = ExtResource("4_2p0nv")
+normal_enabled = true
+normal_texture = ExtResource("3_doikx")
+
+[node name="Ball" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 398.787, 145.857, 481.48)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, -1.93211e-19, 0, 2.13605e-17, 1, 0, 0, 0, 1, 0, 0, 0)
+mass = 38.0
+script = ExtResource("1_dtoi4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+shape = SubResource("SphereShape3D_u7e31")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="RigidBody3D/CollisionShape3D"]
+rings = 12
+material = SubResource("StandardMaterial3D_y0lxm")
+
+[node name="FollowCamera" type="Camera3D" parent="." node_paths=PackedStringArray("Target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 10, 10)
+current = true
+script = ExtResource("5_iqsae")
+Target = NodePath("../RigidBody3D")
+Offset = Vector3(2.08165e-12, 10, -10)

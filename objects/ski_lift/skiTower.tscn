@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://do4pi14yhu8il"]
+
+[ext_resource type="ArrayMesh" uid="uid://twfy2qdno8a2" path="res://ski lift tower.obj" id="1_5v6yi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7b3hh"]
+albedo_color = Color(0.729412, 0.780392, 1, 1)
+metallic = 1.0
+clearcoat = 0.05
+clearcoat_roughness = 0.99
+
+[node name="Node3D" type="Node3D"]
+
+[node name="liftTower" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.179135, 0, 0.499294)
+material_override = SubResource("StandardMaterial3D_7b3hh")
+mesh = ExtResource("1_5v6yi")

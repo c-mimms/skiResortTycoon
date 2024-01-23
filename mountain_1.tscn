@@ -1,0 +1,108 @@
+[gd_scene load_steps=22 format=3 uid="uid://8yn3g6mifd0f"]
+
+[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain.gd" id="1_yw20m"]
+[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="2_f8ob2"]
+[ext_resource type="Resource" path="res://mountain1/data.hterrain" id="2_ud5tf"]
+[ext_resource type="Texture2D" uid="uid://cjwlxiaiu0odx" path="res://assets/textures/snow_01/snow_01_ao_4k.jpg" id="4_0yhis"]
+[ext_resource type="Texture2D" uid="uid://cu5b31a3i2j4" path="res://textures/mountain_1_slot1_albedo_bump.png" id="4_4utl5"]
+[ext_resource type="Texture2D" uid="uid://cqwfq7plx7h7t" path="res://textures/mountain_1_slot0_normal_roughness.png" id="5_trbfu"]
+[ext_resource type="Texture2D" uid="uid://b1tk45aeamr4p" path="res://textures/mountain_1_slot1_normal_roughness.png" id="6_s4doi"]
+[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_detail_layer.gd" id="9_4xtl2"]
+[ext_resource type="ArrayMesh" uid="uid://bl8xhops4jyia" path="res://tree.obj" id="10_713hr"]
+[ext_resource type="Texture2D" uid="uid://6jmdwj3vn6m0" path="res://addons/zylann.hterrain/tools/icons/icon_detail_layer_node.svg" id="11_dpr7x"]
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="12_j03yh"]
+[ext_resource type="PackedScene" uid="uid://cb7rf7tncnwv7" path="res://objects/ball.tscn" id="12_umgmn"]
+[ext_resource type="Script" path="res://scripts/GameController.cs" id="13_u06rn"]
+
+[sub_resource type="Gradient" id="Gradient_37myg"]
+colors = PackedColorArray(0.14902, 0.0745098, 0.329412, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wfilo"]
+gradient = SubResource("Gradient_37myg")
+fill_from = Vector2(1, 0.596154)
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_743lr"]
+ground_color = Color(0.160784, 0.815686, 0.905882, 1)
+night_sky = SubResource("GradientTexture2D_wfilo")
+
+[sub_resource type="Sky" id="Sky_2iust"]
+sky_material = SubResource("PhysicalSkyMaterial_743lr")
+
+[sub_resource type="Environment" id="Environment_0wqd7"]
+background_mode = 2
+sky = SubResource("Sky_2iust")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.1
+tonemap_mode = 1
+ssao_enabled = true
+
+[sub_resource type="Resource" id="Resource_je1g3"]
+script = ExtResource("2_f8ob2")
+mode = 0
+textures = [[ExtResource("4_0yhis"), ExtResource("4_4utl5")], [ExtResource("5_trbfu"), ExtResource("6_s4doi")]]
+
+[sub_resource type="Gradient" id="Gradient_7et41"]
+colors = PackedColorArray(0.21, 0.119665, 0.0231, 1, 0.207843, 0.411765, 0.172549, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tr3ev"]
+gradient = SubResource("Gradient_7et41")
+fill_from = Vector2(1, 0.885321)
+fill_to = Vector2(1, 0.66055)
+
+[node name="Mountain1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0wqd7")
+
+[node name="Character" parent="." instance=ExtResource("12_j03yh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 385.459, 165.37, 328.547)
+
+[node name="HTerrain" type="Node3D" parent="."]
+script = ExtResource("1_yw20m")
+_terrain_data = ExtResource("2_ud5tf")
+chunk_size = 32
+collision_enabled = true
+collision_layer = 1
+collision_mask = 1
+shader_type = "Classic4Lite"
+custom_shader = null
+custom_globalmap_shader = null
+texture_set = SubResource("Resource_je1g3")
+render_layers = 1
+cast_shadow = 2
+shader_params/u_ground_uv_scale = 20
+shader_params/u_depth_blending = true
+shader_params/u_triplanar = null
+shader_params/u_tile_reduction = Vector4(2.08165e-12, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+
+[node name="HTerrainDetailLayer" type="Node3D" parent="HTerrain"]
+script = ExtResource("9_4xtl2")
+texture = SubResource("GradientTexture2D_tr3ev")
+view_distance = 500.0
+density = 0.5
+instance_mesh = ExtResource("10_713hr")
+shader_params/u_globalmap_tint_bottom = null
+shader_params/u_globalmap_tint_top = null
+shader_params/u_bottom_ao = null
+shader_params/u_instance_scale = null
+shader_params/u_roughness = null
+metadata/_editor_icon = ExtResource("11_dpr7x")
+
+[node name="sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.707107, -0.707107, 2.4663e-16, 0.707107, 0.707107, 1, 3.09086e-08, -3.09086e-08, 0, 0, 0)
+light_angular_distance = 0.5
+shadow_enabled = true
+
+[node name="moon" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.707107, -0.707107, 2.4663e-16, 0.707107, 0.707107, 1, 3.09086e-08, -3.09086e-08, 0, 0, 0)
+visible = false
+light_color = Color(0.505882, 0.721569, 0.792157, 1)
+light_energy = 0.1
+light_angular_distance = 1.0
+shadow_enabled = true
+sky_mode = 1
+
+[node name="Ball" parent="." instance=ExtResource("12_umgmn")]
+
+[node name="GameController" type="Node" parent="."]
+script = ExtResource("13_u06rn")

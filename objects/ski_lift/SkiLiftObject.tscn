@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cadvpkpnrtvy2"]
+
+[ext_resource type="Texture2D" uid="uid://bf8k6w5pfso08" path="res://objects/ski_lift/SkiLiftTexture.jpeg" id="1_pkny0"]
+[ext_resource type="ArrayMesh" uid="uid://b26igvaladnpr" path="res://objects/ski_lift/Ski lift.obj" id="2_srhdh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3dqvc"]
+albedo_texture = ExtResource("1_pkny0")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="liftTower" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.179135, 0, 0.499294)
+material_override = SubResource("StandardMaterial3D_3dqvc")
+mesh = ExtResource("2_srhdh")
