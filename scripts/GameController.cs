@@ -25,7 +25,7 @@ public partial class GameController : Node
 
 
 			var followCam = GetTree().Root.GetNode("Mountain1/Ball/FollowCamera") as Camera3D;
-			var ballController = GetTree().Root.GetNode("Mountain1/Ball/RigidBody3D") as BallController;
+			var ballController = GetTree().Root.GetNode("Mountain1/Ball/RigidBody3D") as SnowboardController;
 
 			if(camera.Current){
 				camera.Current = false;

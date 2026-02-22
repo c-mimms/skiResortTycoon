@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://cb7rf7tncnwv7"]
+
+[ext_resource type="Script" path="res://scripts/SnowboardController.cs" id="1_dtoi4"]
+[ext_resource type="Material" uid="uid://bta4e3f1kkgba" path="res://shiny_blue_material.tres" id="3_22ehn"]
+[ext_resource type="Script" path="res://scripts/FollowCamera.cs" id="5_iqsae"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_w1hqw"]
+friction = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vqt27"]
+size = Vector3(2, 0.5, 0.5)
+
+[node name="Snowboard" type="RigidBody3D"]
+mass = 90.0
+physics_material_override = SubResource("PhysicsMaterial_w1hqw")
+center_of_mass_mode = 1
+continuous_cd = true
+script = ExtResource("1_dtoi4")
+
+[node name="FollowCamera" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.258819, -0.965926, 3.36902e-16, 0.965926, 0.258819, 1, 1.13133e-08, -4.2222e-08, -2.5, 1, 2.08165e-12)
+current = true
+script = ExtResource("5_iqsae")
+Offset = Vector3(2.08165e-12, 10, -10)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, -2.13605e-17, 0, 2.13605e-17, 1, 0, 0, 0, 1, 1, 2.08165e-12, 2.08165e-12)
+radius = 0.25
+height = 0.01
+sides = 12
+material = ExtResource("3_22ehn")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+size = Vector3(2, 0.01, 0.5)
+material = ExtResource("3_22ehn")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2.08165e-12, 2.08165e-12)
+radius = 0.25
+height = 0.01
+sides = 12
+material = ExtResource("3_22ehn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.20201, 2.08165e-12)
+shape = SubResource("BoxShape3D_vqt27")
+
+[node name="RayCastBL" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2.08165e-12, -0.25)
+
+[node name="RayCastBR" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2.08165e-12, 0.25)
+
+[node name="RayCastFL" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.08165e-12, -0.25)
+
+[node name="RayCastFR" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.08165e-12, 0.25)
